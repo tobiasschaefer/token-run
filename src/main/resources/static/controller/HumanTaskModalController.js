@@ -12,7 +12,7 @@
 		$scope.confirm = function() {
 			$modalInstance.close();
 			sendRequest(attributeList);
-			var humanTask = document.querySelector('[data-element-id="UserTask_1"]');
+			var humanTask = document.querySelector('[data-element-id="' + $scope.key + '"]');
 			humanTask.removeEventListener('click', openModal);
 		}
 

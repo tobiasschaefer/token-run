@@ -3,6 +3,11 @@
 
 	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', '$modal', 'restUrlProcessDefinitions', function($scope, $window, $location, $http, $timeout, $q, $modal, restUrlProcessDefinitions) {
 
+		var task = {
+				id: "UserTask_1",
+				attributeList: [ { name: "Name" }, { name: "Vorname" } ]
+		};
+
 		var height = $window.innerHeight - 200;
 
 		var BpmnNavigatedViewer  = window.BpmnJS;
@@ -24,28 +29,21 @@
 				$scope.level.completed = true;
 				// open "finished"-popup
 				$scope.openLevelScorePopup();
-//				$modal.open({
-//					templateUrl: 'FinishedLevelModal.html',
-//					controller: 'FinishedLevelModalController',
-//					size: 'sm',
-//					resolve: {
-//						processKey: function () {
-//							return $scope.level.key;
-//						},
-//						time: function () {
-//							return $scope.level.time;
-//						}
-//					}
-//				});
 			} else if(data.status == "entered") {
-				var humanTask = document.querySelector('[data-element-id="UserTask_1"]');
+				// TODO: adjust attributes
+				//task.id = data.taskId;
+				//task.attributeList = data.attributeList;
+				placeToken(task.id);
+				var humanTask = document.querySelector('[data-element-id="' + task.id + '"]');
 				humanTask.addEventListener('click', openModal);
 			}
 		};
-	    
-	    $scope.currentPlayerName = "";
-	    $scope.currentLevelScore = "";
-		
+
+		var tokens = { };
+
+		$scope.currentPlayerName = "";
+		$scope.currentLevelScore = "";
+
 		$scope.level = {
 				key: "Test-Prozess",
 				time: "00:00:00",
@@ -70,10 +68,6 @@
 						console.error(err);
 					} else {
 						viewer.get('canvas').zoom('fit-viewport');
-						
-						// for testing purposes of "human task"-popup
-//						var humanTask = document.querySelector('[data-element-id="UserTask_1"]');
-//						humanTask.addEventListener('click', openModal);
 					}
 				});
 
@@ -90,24 +84,10 @@
 
 		$scope.startLevel = function() {
 
-//			// start process
-//			var url = restUrlProcessDefinitions + "/key/" + $scope.level.key + "/start";
-//			$http({
-//			method: 'POST',
-//			url: url
-//			}).then(function successCallback(response) {
-//			$scope.level.instanceId = response.id;
-//			}, function errorCallback(response) {
-//			$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
-//			});
-
 			sendRequest($scope.level.key);
 
 			today = new Date();
 			timeStart = today.getTime();
-
-			// TODO: remove
-			//placeToken('UserTask_1');
 		}
 
 		$scope.cancel = function() {
@@ -145,6 +125,11 @@
 			}, 500);
 
 			$scope.level.started = true;
+
+			// for testing purposes of "human task"-popup
+			var humanTask = document.querySelector('[data-element-id="' + task.id + '"]');
+			humanTask.addEventListener('click', openModal);
+			placeToken(task.id);
 		}
 
 		function stopTimer() {
@@ -161,20 +146,27 @@
 		}
 
 		function placeToken(id) {
-			viewer.get('overlays').add(id, {
+			var overlays = viewer.get('overlays');
+			var tokenId = overlays.add(id, {
 				position: {
-					top: 0,
+					bottom: 0,
 					left: 0
 				},
-				html: '<div style="width: 25px; height: 25px; border-radius: 50%; fill: #337ab7"></div>'
+				html: '<div id="test" class="token"></div>'
 			});
+			tokens[id] = tokenId;
 		}
 		
+		function removeToken(id) {
+			var overlays = viewer.get('overlays');
+			overlays.remove(tokens[id]);
+		}
+
 		$scope.openLevelScorePopup = function() {
 			$('#levelscoreModal').modal('toggle');
 		}
-		
-		$scope.commitLevelScoreAndClosePopup = function() {
+
+		$scope.commitLevelScoreAndClosePopup = function() {	
 			$http({
 				method: 'POST',
 				url: "/"+$scope.level.key+"/score",
@@ -185,35 +177,28 @@
 			}).then(function successCallback(response) {
 				alert("your level score has been submitted!");
 				//reset for next run
-			    $scope.currentPlayerName = "";
-			    $scope.currentLevelScore = "";
-			    $('#levelscoreModal').modal('toggle');
-			    
+				$scope.currentPlayerName = "";
+				$scope.currentLevelScore = "";
+				$('#levelscoreModal').modal('toggle');
+
 			}, function errorCallback(response) {
 				alert("could not submit level score, please try again!");
 				$('#levelscoreModal').modal('toggle');
 			});
 		}
-		
-		function removeToken(id) {
-			overlays.remove(id);
-		}
-		
+
 		function openModal() {
-			// TODO: get values for attributeList and key from data
-			var attributeList = [{name: "Name"}, {name: "Vorname"}];
-			var key = "UserTask_1";
 			// open "human task"-popup
-			$modal.open({
+			var humanTaskModal = $modal.open({
 				templateUrl: 'HumanTaskModal.html',
 				controller: 'HumanTaskModalController',
 				size: 'lg',
 				resolve: {
 					key: function () {
-						return key;
+						return task.id;
 					},
 					attributeList: function () {
-						return attributeList;
+						return task.attributeList;
 					},
 					websocket: function () {
 						return websocket;
@@ -222,6 +207,12 @@
 						return openModal;
 					}
 				}
+			});
+			humanTaskModal.result.then(function () {
+				console.log("modal closed");
+				removeToken(task.id);
+			}, function () {
+				console.log("modal dismissed");
 			});
 		}
 	}]);

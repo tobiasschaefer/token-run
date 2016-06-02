@@ -26,3 +26,12 @@ button {
 	border-width: 1px;
 	margin: 20px 10px 0px 10px;
 }
+
+.token {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: rgb(51, 122, 183);
+	margin-top: -10px;
+	margin-left: -10px;
+}
