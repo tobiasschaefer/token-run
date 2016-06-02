@@ -8,8 +8,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>token-run</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Token Run</name>
+	<description>A cool game to learn BPMN</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
