@@ -31,7 +31,7 @@
 			<br />
 			<div class="form-group">
 				<button class="btn btn-default big left" ng-click="abbruch()">Abbruch</button>
-				<button class="btn btn-primary big right" ng-click="startLevel()">Start</button>
+				<button class="btn btn-primary big right" ng-click="startLevel()" ng-disabled="level.started">Start</button>
 			</div>
 			<!-- TODO: entfernen... nur zum Testen des Timers, bis WebSocket geht -->
 			<br />

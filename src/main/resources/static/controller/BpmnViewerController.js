@@ -11,7 +11,8 @@
 		$scope.level = {
 				key: "Test-Prozess",
 				zeit: "00:00:00",
-				instanceId: null
+				instanceId: null,
+				started: false
 		};
 
 		$scope.initLevel = function() {
@@ -37,6 +38,11 @@
 			});
 		}
 
+		var today = new Date();
+		var timeStart = null;
+		var timeEnd = null;
+		var tmPromise = null;
+		
 		$scope.startLevel = function() {
 
 			// start process
@@ -50,7 +56,8 @@
 				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
 			});
 
-			// TODO: start timer
+			today = new Date();
+			timeStart = today.getTime();
 			startTimer();
 		}
 
@@ -61,11 +68,6 @@
 		$scope.stop = function() {
 			stopTimer();
 		}
-
-		var today = new Date();
-		var timeStart = today.getTime();
-		var timeEnd = null;
-		var tmPromise = null;
 
 		function checkTime(i) {
 			i = (i < 1) ? 0 : i;
@@ -92,11 +94,14 @@
 			tmPromise = $timeout(function () {
 				startTimer();
 			}, 500);
+			
+			$scope.level.started = true;
 		}
 
 		function stopTimer() {
 			// stop timeout service
 			$timeout.cancel(tmPromise);
+			$scope.level.started = false;
 		}
 	}]);
 }());
