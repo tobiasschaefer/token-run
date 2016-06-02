@@ -1,3 +1,12 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
+deploy:
+  edge: true
+  provider: cloudfoundry
+  username: tobias.schaefer@novatec-gmbh.de
+  password:
+    secure: ermmq8PyCwC6v8iTNtzf2CwgeGJSRsH0IXI3SFPcMTWBvGbDEfkFBuX0+ggfVWlseJxV6fqrwobq32WVWdpxOjDqRPldI5GAbAFyARwQa/xXt6BltX4K0ZCJuHwMXXaHEZBh0zSnw03bT4eDtpAQL98bW4SP1REzRYStPTaO49XHukDk0XNi0BWeOoZiInMUtl9KD/GYqSp2LQnojlXEHCH/Rwcjizni4TzIO8BaMPLGP49jWs2UQi4WwVrmDLf7PzY5s9GkH2SDh3vTdC6pAqnfYyFZguTXAhxXo/ccRcX1860Z53OdTFHaXXeTGkKaQOA4nRuef7U6C01g7DuQorETePL66x4xojwUmDX3etqQN4gAzhZrKEOoiFhd4WOSnVrIbApAQjE4e1ygTBautkUaatYRaduOEsreuFP4h0XxdzY8dY+gDRNVPg6lnl060wVFi6gi/H3JAkMwwiuGx1xEwMJmI1o4FgSJ0KJ/qVRL4CNwmw3zrJN8gsCdfR3Fq2YG558e+Q3AIr8Oe5tjZSruk2ND/Mnn8/D2uqGIJ4SJL0IC8CoxuIb+M9uzdv71cKqoE5vN48CxhWZwtVCk9czNIrpA9c+LxZ2VFIBQFF09gI2Hqlwaq5HHXQamJjswn06Lx2XEyLgAi+1AqftZZgghL/hMdliQtJANsmbLjvw=
+  api: https://api.run.pivotal.io
+  organization: tosch
+  space: development

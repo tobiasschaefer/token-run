@@ -1,0 +1,7 @@
+---
+applications:
+- name: 
+  path: target/token-run-0.0.1-SNAPSHOT.jar
+  memory: 512M
+  buildpack: java_buildpack
+
