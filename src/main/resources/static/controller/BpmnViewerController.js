@@ -1,18 +1,36 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', 'restUrlProcessDefinitions', function($scope, $window, $location, $http, $timeout, restUrlProcessDefinitions) {
+	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', 'restUrlProcessDefinitions', function($scope, $window, $location, $http, $timeout, $q, restUrlProcessDefinitions) {
 
 		var height = $window.innerHeight - 200;
 
 		var BpmnNavigatedViewer  = window.BpmnJS;
 		var viewer = new BpmnNavigatedViewer ({ container: angular.element('#js-canvas'), height });
-
+		// connect to WebSocket
+		var websocket = new WebSocket("ws://" + location.host +  "/webSocket");
+		
+		websocket.onopen = function(){  
+	        console.log("WebSocket has been opened!");  
+	    };
+	    
+	    websocket.onmessage = function(message) {
+	    	var data = JSON.parse(message.data);
+	        console.log("Received data from websocket: ", data);
+	        if(data.status == "started") {
+	        	startTimer();
+	        } else if(data.status == "stoped") {
+	        	stopTimer();
+	        	$scope.level.stopped = true;
+	        }
+	    };
+		
 		$scope.level = {
 				key: "Test-Prozess",
 				zeit: "00:00:00",
 				instanceId: null,
-				started: false
+				started: false,
+				stopped: false
 		};
 
 		$scope.initLevel = function() {
@@ -36,6 +54,7 @@
 			}, function errorCallback(response) {
 				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
 			});
+			
 		}
 
 		var today = new Date();
@@ -45,24 +64,32 @@
 		
 		$scope.startLevel = function() {
 
-			// start process
-			var url = restUrlProcessDefinitions + "key/" + $scope.level.key + "/start";
-			$http({
-				method: 'POST',
-				url: url
-			}).then(function successCallback(response) {
-				$scope.level.instanceId = response.id;
-			}, function errorCallback(response) {
-				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
-			});
+//			// start process
+//			var url = restUrlProcessDefinitions + "/key/" + $scope.level.key + "/start";
+//			$http({
+//				method: 'POST',
+//				url: url
+//			}).then(function successCallback(response) {
+//				$scope.level.instanceId = response.id;
+//			}, function errorCallback(response) {
+//				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
+//			});
+			
+			sendRequest($scope.level.key);
 
 			today = new Date();
 			timeStart = today.getTime();
-			startTimer();
+			
+			// TODO: remove
+			placeToken('UserTask_1');
 		}
 
 		$scope.abbruch = function() {
+<<<<<<< HEAD
+			$window.location.href="../";
+=======
 			$window.location.href="index.html";
+>>>>>>> 033f4b1ba07396bf6df073d9b2f0465f07d5aa8b
 		}
 
 		$scope.stop = function() {
@@ -102,6 +129,27 @@
 			// stop timeout service
 			$timeout.cancel(tmPromise);
 			$scope.level.started = false;
+		}
+		
+		function sendRequest(request) {
+		      var defer = $q.defer();
+		      console.log('Sending request', request);
+		      websocket.send(JSON.stringify(request));
+		      return defer.promise;
+		    }
+		
+		function placeToken(id) {
+			viewer.get('overlays').add(id, {
+				position: {
+					top: 0,
+					left: 0
+				},
+				html: '<div style="width: 25px; height: 25px; border-radius: 50%; fill: #337ab7"></div>'
+			});
+		}
+		
+		function removeToken(id) {
+			overlays.remove(id);
 		}
 	}]);
 }());
