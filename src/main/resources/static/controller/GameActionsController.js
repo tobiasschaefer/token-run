@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRunApp').controller('GameActionsController', ['restUrlProcessDefinitions', '$http', '$scope', function (restUrlProcessDefinitions, $http, $scope) {
+	angular.module('TokenRunApp').controller('GameActionsController', ['restUrlProcessDefinitions', '$http', '$scope','$window', function (restUrlProcessDefinitions, $http, $scope,$window ) {
 
 		var defaultLevelSelection = {
 				name:"Level auswählen",
@@ -43,6 +43,10 @@
 			}, function errorCallback(response) {
 				$scope.error = "TokenRun Error occured while accessing "+restUrlProcessDefinitions+" - status: "+response.status;
 			});
+		}
+		
+		$scope.playLevel = function() {
+			$window.location.href="BpmnViewer.html?processDefinitionKey="+$scope.selectedProcessDefinition.name;
 		}
 
 	}]);

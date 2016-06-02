@@ -8,15 +8,18 @@
 		<script src="../app.js" type="text/javascript"></script>
 		<script src="../controller/GameActionsController.js"></script>
 	</head>
-	<body ng-controller="GameActionsController" ng-init="loadAvailableProcessDefinitions()">
+	<body class="container" ng-controller="GameActionsController" ng-init="loadAvailableProcessDefinitions()">
 		<div id="tokenRunMainContainer" ng-show="error.length==0">
 		<h1>TokenRUN</h1>
-		<h5>Direkt spielen</h5>
+		<h3>Direkt spielen</h3>
 		<hr>
 		<div id="tokenRunSelectLevelToPlayContainer" ng-show="processDefinitions.length>1">
-			<select ng-model="selectedProcessDefinition" ng-change="validateLevelSelection()"
-				ng-options="processDefinition.name for processDefinition in processDefinitions track by processDefinition.name">	
-			</select>
+			<form class="form-inline">
+				<select class="form-control" ng-model="selectedProcessDefinition" ng-change="validateLevelSelection()"
+					ng-options="processDefinition.name for processDefinition in processDefinitions track by processDefinition.name">	
+				</select>
+				<button ng-click="playLevel()" class="btn btn-primary" ng-disabled="selectedProcessDefinition.id==-1">Level spielen</button>
+			</form>
 		</div>
      </div>
      <div id="tokenRunInfoContainer" ng-show="info.length>0">
