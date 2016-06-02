@@ -47,21 +47,21 @@
 		<div id="js-canvas"></div>
 		
 		<!-- only for test purposes use functions openLevelScorePopup() and commitLevelScoreAndClosePopup() from code to replace button -->
-		<button ng-click="openLevelScorePopup();currentLevelScore=1000;" class="btn btn-primary" ng-click="currentLevelScore=10000">Enter Score</button>
+		<!--<button ng-click="openLevelScorePopup();currentLevelScore=1000;" class="btn btn-primary">Enter Score</button>-->
 		
 		<div class="modal fade" id="levelscoreModal" tabindex="-1" role="dialog" aria-labelledby="levelscoreModalLabel">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="levelscoreModalLabel">Enter Name For Level Score</h4>
+		        <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="levelscoreModalLabel">Congratulations! You have finished {{ level.key }}</h4>
 		      </div>
 		      <div class="modal-body">
 		        <form class="form-horizontal" name="enterLevelScoreForm">
 		        	<div class="form-group">
 				    	<label class="col-lg-4 col-sm-4 control-label">Your Score</label>
 				    	<div class="col-lg-8 col-sm-8">
-				      		<p class="form-control-static"><span class="label label-success">{{currentLevelScore}}</span></p>
+				      		<p class="form-control-static"><span class="label label-success" style="font-size: 14pt;">{{ level.time }}</span></p>
 				    	</div>
 				  	</div>
 					<div class="form-group">

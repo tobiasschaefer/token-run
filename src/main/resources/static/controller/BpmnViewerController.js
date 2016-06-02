@@ -23,19 +23,20 @@
 				stopTimer();
 				$scope.level.completed = true;
 				// open "finished"-popup
-				$modal.open({
-					templateUrl: 'FinishedLevelModal.html',
-					controller: 'FinishedLevelModalController',
-					size: 'sm',
-					resolve: {
-						processKey: function () {
-							return $scope.level.key;
-						},
-						time: function () {
-							return $scope.level.time;
-						}
-					}
-				});
+				$scope.openLevelScorePopup();
+//				$modal.open({
+//					templateUrl: 'FinishedLevelModal.html',
+//					controller: 'FinishedLevelModalController',
+//					size: 'sm',
+//					resolve: {
+//						processKey: function () {
+//							return $scope.level.key;
+//						},
+//						time: function () {
+//							return $scope.level.time;
+//						}
+//					}
+//				});
 			} else if(data.status == "entered") {
 				var humanTask = document.querySelector('[data-element-id="UserTask_1"]');
 				humanTask.addEventListener('click', openModal);
