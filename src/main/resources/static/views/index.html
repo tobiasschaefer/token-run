@@ -8,26 +8,67 @@
 		<script src="../app.js" type="text/javascript"></script>
 		<script src="../controller/GameActionsController.js"></script>
 	</head>
+	<style>
+	blink {
+	    display: inline;
+	    color: inherit;
+	    animation: blink 1s steps(1) infinite;
+	    -webkit-animation: blink 1s steps(1) infinite;
+	}
+	@keyframes blink { 50% { color: transparent; } }
+	@-webkit-keyframes blink { 50% { color: transparent; } }
+	</style>
 	<body class="container" ng-controller="GameActionsController" ng-init="loadAvailableProcessDefinitions()">
+		
 		<div id="tokenRunMainContainer" ng-show="error.length==0">
 		<h1>TokenRUN</h1>
-		<h3>Direkt spielen</h3>
+		<h3>Just play</h3>
 		<hr>
-		<div id="tokenRunSelectLevelToPlayContainer" ng-show="processDefinitions.length>1">
+		<div id="tokenRunLevelToPlayContainer" ng-show="processDefinitions.length>1">
 			<form class="form-inline">
 				<select class="form-control" ng-model="selectedProcessDefinition" ng-change="validateLevelSelection()"
 					ng-options="processDefinition.name for processDefinition in processDefinitions track by processDefinition.name">	
 				</select>
-				<button ng-click="playLevel()" class="btn btn-primary" ng-disabled="selectedProcessDefinition.id==-1">Level spielen</button>
+				<button ng-click="playLevel()" class="btn btn-primary" ng-disabled="selectedProcessDefinition.id==-1">play level</button>
+				<button ng-click="showHighscoresForLevel()" class="btn btn-success" ng-disabled="selectedProcessDefinition.id==-1">show highscores</button>
 			</form>
+			<div class="modal fade" id="highscoreModal" tabindex="-1" role="dialog" aria-labelledby="highscoreModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="highscoreModalLabel">Highscores for {{selectedProcessDefinition.name}}</h4>
+			      </div>
+			      <div class="modal-body">
+			        <table class="table table-striped" ng-show="levelHighscores.length>0">
+			        	<tr>
+			        		<th>Player</th>
+			        		<th>Score</th>
+			        	</tr>
+						<tr ng-repeat="levelHighscore in levelHighscores">
+							<td>{{levelHighscore.playerName}}</td><td>{{levelHighscore.score	}}</td>
+						</tr>
+					</table>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 		</div>
      </div>
+     <br>
      <div id="tokenRunInfoContainer" ng-show="info.length>0">
-     	<h4>{{info}}</h4>
+		<div class="alert alert-danger alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>Sorry!</strong> {{info}}
+		</div>
      </div>
      <div id="tokenRunErrorContainer" ng-show="error.length>0">
      	<h4>{{error}}</h4>
      </div>
+     <div ng-include="'log.html'"></div>
    </body>
  </html>
 
