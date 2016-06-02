@@ -1,4 +1,4 @@
-package info.novatec.tr;
+package info.novatec.tr.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
 	@Bean
 	public WebSocketHandler myHandler() {
-		return new MyHandler();
+		return new TokenRunWebSocketHandler();
 	}
 
 }
