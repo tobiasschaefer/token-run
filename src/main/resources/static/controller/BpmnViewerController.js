@@ -9,21 +9,21 @@
 		var viewer = new BpmnNavigatedViewer ({ container: angular.element('#js-canvas'), height });
 		// connect to WebSocket
 		var websocket = new WebSocket("ws://" + location.host +  "/webSocket");
-		
+
 		websocket.onopen = function(){  
-	        console.log("WebSocket has been opened!");  
-	    };
-	    
-	    websocket.onmessage = function(message) {
-	    	var data = JSON.parse(message.data);
-	        console.log("Received data from websocket: ", data);
-	        if(data.status == "started") {
-	        	startTimer();
-	        } else if(data.status == "completed") {
-	        	stopTimer();
-	        	$scope.level.completed = true;
-	        	// open "finished"-popup
-	        	$modal.open({
+			console.log("WebSocket has been opened!");  
+		};
+
+		websocket.onmessage = function(message) {
+			var data = JSON.parse(message.data);
+			console.log("Received data from websocket: ", data);
+			if(data.status == "started") {
+				startTimer();
+			} else if(data.status == "completed") {
+				stopTimer();
+				$scope.level.completed = true;
+				// open "finished"-popup
+				$modal.open({
 					templateUrl: 'FinishedLevelModal.html',
 					controller: 'FinishedLevelModalController',
 					size: 'sm',
@@ -36,9 +36,12 @@
 						}
 					}
 				});
-	        }
-	    };
-		
+			} else if(data.status == "entered") {
+				var humanTask = document.querySelector('[data-element-id="UserTask_1"]');
+				humanTask.addEventListener('click', openModal);
+			}
+		};
+
 		$scope.level = {
 				key: "Test-Prozess",
 				time: "00:00:00",
@@ -63,37 +66,42 @@
 						console.error(err);
 					} else {
 						viewer.get('canvas').zoom('fit-viewport');
+						
+						// for testing purposes of "human task"-popup
+//						var humanTask = document.querySelector('[data-element-id="UserTask_1"]');
+//						humanTask.addEventListener('click', openModal);
 					}
 				});
+
 			}, function errorCallback(response) {
 				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
 			});
-			
+
 		}
 
 		var today = new Date();
 		var timeStart = null;
 		var timeEnd = null;
 		var tmPromise = null;
-		
+
 		$scope.startLevel = function() {
 
 //			// start process
 //			var url = restUrlProcessDefinitions + "/key/" + $scope.level.key + "/start";
 //			$http({
-//				method: 'POST',
-//				url: url
+//			method: 'POST',
+//			url: url
 //			}).then(function successCallback(response) {
-//				$scope.level.instanceId = response.id;
+//			$scope.level.instanceId = response.id;
 //			}, function errorCallback(response) {
-//				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
+//			$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
 //			});
-			
+
 			sendRequest($scope.level.key);
 
 			today = new Date();
 			timeStart = today.getTime();
-			
+
 			// TODO: remove
 			placeToken('UserTask_1');
 		}
@@ -111,7 +119,7 @@
 			if (i < 10) { i = "0" + i; }  // add zero in front of numbers < 10
 			return i;
 		}
-		
+
 		function startTimer() {
 
 			var h, m, s, ms, today = new Date();
@@ -131,7 +139,7 @@
 			tmPromise = $timeout(function () {
 				startTimer();
 			}, 500);
-			
+
 			$scope.level.started = true;
 		}
 
@@ -140,14 +148,14 @@
 			$timeout.cancel(tmPromise);
 			$scope.level.started = false;
 		}
-		
+
 		function sendRequest(request) {
-		      var defer = $q.defer();
-		      console.log('Sending request', request);
-		      websocket.send(JSON.stringify(request));
-		      return defer.promise;
-		    }
-		
+			var defer = $q.defer();
+			console.log('Sending request', request);
+			websocket.send(JSON.stringify(request));
+			return defer.promise;
+		}
+
 		function placeToken(id) {
 			viewer.get('overlays').add(id, {
 				position: {
@@ -157,9 +165,35 @@
 				html: '<div style="width: 25px; height: 25px; border-radius: 50%; fill: #337ab7"></div>'
 			});
 		}
-		
+
 		function removeToken(id) {
 			overlays.remove(id);
+		}
+		
+		function openModal() {
+			// TODO: get values for attributeList and key from data
+			var attributeList = [{name: "Name"}, {name: "Vorname"}];
+			var key = "UserTask_1";
+			// open "human task"-popup
+			$modal.open({
+				templateUrl: 'HumanTaskModal.html',
+				controller: 'HumanTaskModalController',
+				size: 'lg',
+				resolve: {
+					key: function () {
+						return key;
+					},
+					attributeList: function () {
+						return attributeList;
+					},
+					websocket: function () {
+						return websocket;
+					},
+					openModal: function () {
+						return openModal;
+					}
+				}
+			});
 		}
 	}]);
 }());

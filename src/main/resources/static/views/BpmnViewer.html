@@ -12,6 +12,7 @@
 		<script src="../app.js"></script>
 		<script src="../controller/BpmnViewerController.js"></script>
 		<script src="../controller/FinishedLevelModalController.js"></script>
+		<script src="../controller/HumanTaskModalController.js"></script>
 		<script src="../bower_components/bpmn-js/dist/bpmn-navigated-viewer.js"></script>
 		
 		<meta charset="ISO-8859-1">
@@ -21,6 +22,7 @@
 	<body ng-controller="BpmnViewerController" ng-init="initLevel()">
 		
 		<div ng-include="'../templates/FinishedLevelModal.html'"></div>
+		<div ng-include="'../templates/HumanTaskModal.html'"></div>
 		
 		<!-- Steuerungselemente -->
 		<div>
