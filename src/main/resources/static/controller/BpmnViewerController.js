@@ -13,8 +13,7 @@
 				zeit: "00:00:00"
 		};
 		
-		$scope.startLevel = function() {
-			
+		$scope.initLevel = function() {
 			// 1. get process key from url parameters
 			$scope.level.key = $location.search().processDefinitionKey;
 			
@@ -25,7 +24,7 @@
 				method: 'GET',
 				url: url
 			}).then(function successCallback(response) {
-				viewer.importXML(xml.data.bpmn20Xml, function(err) {
+				viewer.importXML(response.data.bpmn20Xml, function(err) {
 					if (err) {
 						console.error(err);
 					} else {
@@ -35,6 +34,9 @@
 			}, function errorCallback(response) {
 				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
 			});
+		}
+		
+		$scope.startLevel = function() {
 			
 			// TODO: start process
 			
