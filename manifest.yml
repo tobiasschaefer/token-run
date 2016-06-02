@@ -2,7 +2,7 @@
 applications:
 - name: token-run
   path: target/token-run-0.0.1-SNAPSHOT.jar
-  memory: 512M
+  memory: 1024M
   buildpack: java_buildpack
 services:
 - postgresql
