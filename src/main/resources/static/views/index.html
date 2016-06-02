@@ -47,7 +47,7 @@
 			        		<th>Score</th>
 			        	</tr>
 						<tr ng-repeat="levelHighscore in levelHighscores">
-							<td>#{{$index+1}}</td><td>{{levelHighscore.playerName}}</td><td>{{levelHighscore.time}}</td>
+							<td>#{{$index+1}}</td><td>{{levelHighscore.playerName}}</td><td>{{levelHighscore.time | milliSecondsToTimeString}}</td>
 						</tr>
 					</table>
 			      </div>

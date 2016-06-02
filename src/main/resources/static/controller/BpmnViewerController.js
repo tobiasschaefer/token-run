@@ -146,7 +146,7 @@
 				url: "/"+$scope.level.key+"/score",
 				data: {
 					playerName:$scope.currentPlayerName,
-					score:$scope.currentLevelScore
+					time:$scope.currentLevelScore
 				}
 			}).then(function successCallback(response) {
 				alert("your level score has been submitted!");
