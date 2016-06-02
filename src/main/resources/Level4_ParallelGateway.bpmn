@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
   <bpmn:collaboration id="Collaboration_0hcpcym">
-    <bpmn:participant id="Participant_1faettz" name="Pool" processRef="Level4_Parallele_Gateways" />
+    <bpmn:participant id="Participant_1faettz" name="Pool" processRef="Level4_ParallelGateway" />
   </bpmn:collaboration>
-  <bpmn:process id="Level4_Parallele_Gateways" name="Level4 Parallele Gateways" isExecutable="true">
+  <bpmn:process id="Level4_ParallelGateway" name="" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_0pnbtez</bpmn:outgoing>
     </bpmn:startEvent>
@@ -14,7 +14,7 @@
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="SequenceFlow_0pnbtez" sourceRef="StartEvent_1" targetRef="ParallelGateway_1i46iiz" />
     <bpmn:sequenceFlow id="SequenceFlow_0gls0st" sourceRef="ParallelGateway_1i46iiz" targetRef="UserTask_1" />
-    <bpmn:userTask id="UserTask_1" name="HumanTask1">
+    <bpmn:userTask id="UserTask_1" name="eat pizza">
       <bpmn:incoming>SequenceFlow_0gls0st</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0fr8fe8</bpmn:outgoing>
     </bpmn:userTask>
@@ -30,7 +30,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_020yepz" sourceRef="ParallelGateway_05i7pjt" targetRef="EndEvent_0qq0m7i" />
     <bpmn:sequenceFlow id="SequenceFlow_0fr8fe8" sourceRef="UserTask_1" targetRef="ParallelGateway_05i7pjt" />
-    <bpmn:userTask id="UserTask_2" name="HumanTask2">
+    <bpmn:userTask id="UserTask_2" name="drink beer">
       <bpmn:incoming>SequenceFlow_15t7k81</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1orbg04</bpmn:outgoing>
     </bpmn:userTask>
