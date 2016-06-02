@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html ng-app="TokenRunApp">
 	<head>
+	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/bpmn-viewer-style.css">
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 		<script src="../app.js"></script>
 		<script src="../controller/BpmnViewerController.js"></script>
 		<script src="../bower_components/bpmn-js/dist/bpmn-navigated-viewer.js"></script>
-		
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../css/bpmn-viewer-style.css">
 		
 		<meta charset="ISO-8859-1">
 		<title>Token Run</title>
@@ -30,8 +30,8 @@
 			<br />
 			<br />
 			<div class="form-group">
-				<button class="big left" ng-click="abbruch()">Abbruch</button>
-				<button class="big right" ng-click="startLevel()">Start</button>
+				<button class="btn btn-default big left" ng-click="abbruch()">Abbruch</button>
+				<button class="btn btn-primary big right" ng-click="startLevel()">Start</button>
 			</div>
 		</div>
 		

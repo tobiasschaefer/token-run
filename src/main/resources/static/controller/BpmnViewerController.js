@@ -10,7 +10,8 @@
 
 		$scope.level = {
 				key: "Test-Prozess",
-				zeit: "00:00:00"
+				zeit: "00:00:00",
+				instanceId: null
 		};
 		
 		$scope.initLevel = function() {
@@ -38,14 +39,23 @@
 		
 		$scope.startLevel = function() {
 			
-			// TODO: start process
+			// start process
+			var url = restUrlProcessDefinitions + "key/" + $scope.level.key + "/start";
+			$http({
+				method: 'POST',
+				url: url
+			}).then(function successCallback(response) {
+				$scope.level.instanceId = response.id;
+			}, function errorCallback(response) {
+				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
+			});
 			
 			// TODO: start timer
 			$scope.level.zeit = "00:00:01";
 		}
 		
 		$scope.abbruch = function() {
-			// TODO: zurück auf Startseite
+			$window.location.href="index2.html";
 		}
 	}]);
 }());
