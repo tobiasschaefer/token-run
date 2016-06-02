@@ -39,5 +39,39 @@
 		
 		<!-- viewer -->
 		<div id="js-canvas"></div>
+		
+		<!-- only for test purposes use functions openLevelScorePopup() and commitLevelScoreAndClosePopup() from code to replace button -->
+		<button ng-click="openLevelScorePopup();currentLevelScore=1000;" class="btn btn-primary" ng-click="currentLevelScore=10000">Enter Score</button>
+		
+		<div class="modal fade" id="levelscoreModal" tabindex="-1" role="dialog" aria-labelledby="levelscoreModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="levelscoreModalLabel">Enter Name For Level Score</h4>
+		      </div>
+		      <div class="modal-body">
+		        <form class="form-horizontal" name="enterLevelScoreForm">
+		        	<div class="form-group">
+				    	<label class="col-lg-4 col-sm-4 control-label">Your Score</label>
+				    	<div class="col-lg-8 col-sm-8">
+				      		<p class="form-control-static"><span class="label label-success">{{currentLevelScore}}</span></p>
+				    	</div>
+				  	</div>
+					<div class="form-group">
+						<label for="playerNameInput" class="col-lg-4 col-sm-4 control-label">Your Player Name</label>
+				    	<div class="col-lg-8 col-sm-8">
+				      		<input type="text" class="form-control" id="playerNameInput" required ng-model="currentPlayerName" placeholder="Your player name">
+				    	</div>
+					</div>				  	
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-primary" ng-disabled="enterLevelScoreForm.$invalid" ng-click="commitLevelScoreAndClosePopup()">Submit</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 </body>
 </html>

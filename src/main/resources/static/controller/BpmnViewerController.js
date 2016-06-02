@@ -14,6 +14,9 @@
 	        console.log("WebSocket has been opened!");  
 	    };
 	    
+	    $scope.currentPlayerName = "";
+	    $scope.currentLevelScore = "";
+	    
 	    websocket.onmessage = function(message) {
 	    	var data = JSON.parse(message.data);
 	        console.log("Received data from websocket: ", data);
@@ -63,18 +66,7 @@
 		var tmPromise = null;
 		
 		$scope.startLevel = function() {
-
-//			// start process
-//			var url = restUrlProcessDefinitions + "/key/" + $scope.level.key + "/start";
-//			$http({
-//				method: 'POST',
-//				url: url
-//			}).then(function successCallback(response) {
-//				$scope.level.instanceId = response.id;
-//			}, function errorCallback(response) {
-//				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
-//			});
-			
+		
 			sendRequest($scope.level.key);
 
 			today = new Date();
@@ -141,6 +133,31 @@
 					left: 0
 				},
 				html: '<div style="width: 25px; height: 25px; border-radius: 50%; fill: #337ab7"></div>'
+			});
+		}
+		
+		$scope.openLevelScorePopup = function() {
+			$('#levelscoreModal').modal('toggle');
+		}
+		
+		$scope.commitLevelScoreAndClosePopup = function() {
+			$http({
+				method: 'POST',
+				url: "/"+$scope.level.key+"/score",
+				data: {
+					playerName:$scope.currentPlayerName,
+					score:$scope.currentLevelScore
+				}
+			}).then(function successCallback(response) {
+				alert("your level score has been submitted!");
+				//reset for next run
+			    $scope.currentPlayerName = "";
+			    $scope.currentLevelScore = "";
+			    $('#levelscoreModal').modal('toggle');
+			    
+			}, function errorCallback(response) {
+				alert("could not submit level score, please try again!");
+				$('#levelscoreModal').modal('toggle');
 			});
 		}
 		
