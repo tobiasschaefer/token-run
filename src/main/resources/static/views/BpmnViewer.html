@@ -24,24 +24,20 @@
      			<h4>{{ error }}</h4>
      		</div>
 			<div class="form-group">
-				<div class="big left">Aktuelles Level: {{ level.key }}</div>
-				<div class="big right">Deine Zeit: {{ level.zeit }}</div>
+				<div class="big left">Current Level: {{ level.key }}</div>
+				<div class="big right">Elapsed time: {{ level.zeit }}</div>
 			</div>
 			<br />
 			<br />
 			<div class="form-group">
-				<button class="btn btn-default big left" ng-click="abbruch()">Abbruch</button>
+				<button class="btn btn-default big left" ng-click="abbruch()">Cancel</button>
 				<button class="btn btn-primary big right" ng-click="startLevel()" ng-disabled="level.started">Start</button>
 			</div>
-			<!-- TODO: entfernen... nur zum Testen des Timers, bis WebSocket geht -->
-			<br />
-			<button class="btn btn-primary big right" ng-click="stop()">Stop</button>
 		</div>
 		
 		<br />
 		
 		<!-- viewer -->
 		<div id="js-canvas"></div>
-		
 </body>
 </html>
