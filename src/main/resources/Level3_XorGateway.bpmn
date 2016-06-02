@@ -30,6 +30,9 @@
       <bpmn:outgoing>SequenceFlow_10lucma</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:endEvent id="EndEvent_10967un">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${processEndListener}" event="start" />
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_10lucma</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_10lucma" sourceRef="ExclusiveGateway_1bs5k7q" targetRef="EndEvent_10967un" />
