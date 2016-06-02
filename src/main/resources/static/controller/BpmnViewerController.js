@@ -85,7 +85,11 @@
 		}
 
 		$scope.abbruch = function() {
+<<<<<<< HEAD
 			$window.location.href="../";
+=======
+			$window.location.href="index.html";
+>>>>>>> 033f4b1ba07396bf6df073d9b2f0465f07d5aa8b
 		}
 
 		$scope.stop = function() {
