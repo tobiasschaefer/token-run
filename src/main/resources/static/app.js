@@ -8,7 +8,7 @@
 		  requireBase: false
 		});
 	}) 
-	.constant('restUrlProcessDefinitions', '/api/engine/engine/default/process-definition');
+	.constant('restUrlProcessDefinitions', '/rest/process-definition');
 
 //	hier können App-weite Einstellungen vorgenommen werden, indem Konstanten mit .const gesetzt werden
 
