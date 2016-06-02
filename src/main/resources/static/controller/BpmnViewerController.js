@@ -180,7 +180,8 @@
 				url: "/"+$scope.level.key+"/score",
 				data: {
 					playerName:$scope.currentPlayerName,
-					time:$scope.currentLevelScore
+					time:$scope.currentLevelScore,
+					processId:"notSet"
 				}
 			}).then(function successCallback(response) {
 				alert("your level score has been submitted!");
