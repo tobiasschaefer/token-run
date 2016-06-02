@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRun').controller('BpmnViewerController', ['$scope', function($scope) {
+	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', function($scope) {
 
 		var BpmnViewer = window.BpmnJS;
 		var viewer = new BpmnViewer({ container: angular.element('#js-canvas'), height: 600 });
