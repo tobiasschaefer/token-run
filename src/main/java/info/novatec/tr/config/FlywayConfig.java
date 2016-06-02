@@ -9,6 +9,7 @@ public class FlywayConfig implements FlywayMigrationStrategy {
     @Override
     public void migrate(Flyway flyway) {
         flyway.setBaselineOnMigrate(true);
+        flyway.setBaselineVersionAsString("1");
         flyway.migrate();
     }
 }
