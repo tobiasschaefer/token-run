@@ -42,11 +42,12 @@
 			      <div class="modal-body">
 			        <table class="table table-striped" ng-show="levelHighscores.length>0">
 			        	<tr>
+			        		<th>Rank</th>
 			        		<th>Player</th>
 			        		<th>Score</th>
 			        	</tr>
 						<tr ng-repeat="levelHighscore in levelHighscores">
-							<td>{{levelHighscore.playerName}}</td><td>{{levelHighscore.time}}</td>
+							<td>#{{$index+1}}</td><td>{{levelHighscore.playerName}}</td><td>{{levelHighscore.time}}</td>
 						</tr>
 					</table>
 			      </div>
