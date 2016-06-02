@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', function($scope, $window) {
+	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', function($scope, $window, $location) {
 
 		var height = $window.innerHeight - 200;
 		
@@ -12,6 +12,7 @@
 		
 		$scope.level = {
 				name: "Test-Prozess",
+				id: "1",
 				zeit: "00:00:00"
 		};
 		
@@ -26,6 +27,7 @@
 		});
 		
 		$scope.startLevel = function() {
+			$scope.level.id = $location.search().processDefinitionKey;
 			// TODO: xml aus REST-API holen
 			// TODO: Prozess starten
 			// TODO: Zeit starten
