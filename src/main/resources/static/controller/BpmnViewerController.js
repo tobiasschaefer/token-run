@@ -25,7 +25,13 @@
 				method: 'GET',
 				url: url
 			}).then(function successCallback(response) {
-				loadXML(response);
+				viewer.importXML(xml.data.bpmn20Xml, function(err) {
+					if (err) {
+						console.error(err);
+					} else {
+						viewer.get('canvas').zoom('fit-viewport');
+					}
+				});
 			}, function errorCallback(response) {
 				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
 			});
@@ -38,16 +44,6 @@
 		
 		$scope.abbruch = function() {
 			// TODO: zurück auf Startseite
-		}
-		
-		function loadXML(xml) {
-			viewer.importXML(xml, function(err) {
-				if (err) {
-					console.error(err);
-				} else {
-					viewer.get('canvas').zoom('fit-viewport');
-				}
-			});
 		}
 	}]);
 }());
