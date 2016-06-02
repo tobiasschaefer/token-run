@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
   <bpmn:collaboration id="Collaboration_0hcpcym">
     <bpmn:participant id="Participant_1faettz" name="Pool" processRef="Level4_ParallelGateway" />
   </bpmn:collaboration>
@@ -13,24 +13,27 @@
       <bpmn:outgoing>SequenceFlow_15t7k81</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="SequenceFlow_0pnbtez" sourceRef="StartEvent_1" targetRef="ParallelGateway_1i46iiz" />
-    <bpmn:sequenceFlow id="SequenceFlow_0gls0st" sourceRef="ParallelGateway_1i46iiz" targetRef="UserTask_1" />
-    <bpmn:userTask id="UserTask_1" name="eat pizza">
+    <bpmn:sequenceFlow id="SequenceFlow_0gls0st" sourceRef="ParallelGateway_1i46iiz" targetRef="UserTask_123" />
+    <bpmn:userTask id="UserTask_123" name="eat pizza">
       <bpmn:incoming>SequenceFlow_0gls0st</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0fr8fe8</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="SequenceFlow_15t7k81" sourceRef="ParallelGateway_1i46iiz" targetRef="UserTask_2" />
-    <bpmn:sequenceFlow id="SequenceFlow_1orbg04" sourceRef="UserTask_2" targetRef="ParallelGateway_05i7pjt" />
+    <bpmn:sequenceFlow id="SequenceFlow_15t7k81" sourceRef="ParallelGateway_1i46iiz" targetRef="UserTask_234" />
+    <bpmn:sequenceFlow id="SequenceFlow_1orbg04" sourceRef="UserTask_234" targetRef="ParallelGateway_05i7pjt" />
     <bpmn:parallelGateway id="ParallelGateway_05i7pjt">
       <bpmn:incoming>SequenceFlow_1orbg04</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0fr8fe8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_020yepz</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:endEvent id="EndEvent_0qq0m7i">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${processEndListener}" event="start" />
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_020yepz</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_020yepz" sourceRef="ParallelGateway_05i7pjt" targetRef="EndEvent_0qq0m7i" />
-    <bpmn:sequenceFlow id="SequenceFlow_0fr8fe8" sourceRef="UserTask_1" targetRef="ParallelGateway_05i7pjt" />
-    <bpmn:userTask id="UserTask_2" name="drink beer">
+    <bpmn:sequenceFlow id="SequenceFlow_0fr8fe8" sourceRef="UserTask_123" targetRef="ParallelGateway_05i7pjt" />
+    <bpmn:userTask id="UserTask_234" name="drink beer">
       <bpmn:incoming>SequenceFlow_15t7k81</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1orbg04</bpmn:outgoing>
     </bpmn:userTask>
@@ -67,7 +70,7 @@
           <dc:Bounds x="243" y="148" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_1vkx5tn_di" bpmnElement="UserTask_1">
+      <bpmndi:BPMNShape id="UserTask_1vkx5tn_di" bpmnElement="UserTask_123">
         <dc:Bounds x="367" y="89" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_15t7k81_di" bpmnElement="SequenceFlow_15t7k81">
@@ -113,7 +116,7 @@
           <dc:Bounds x="460" y="119" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_1y7ewvn_di" bpmnElement="UserTask_2">
+      <bpmndi:BPMNShape id="UserTask_1y7ewvn_di" bpmnElement="UserTask_234">
         <dc:Bounds x="367" y="243" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

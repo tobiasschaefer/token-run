@@ -21,13 +21,13 @@ public class TokenRunWebSocketHandler extends TextWebSocketHandler {
 		String key = (String)message.getPayload().subSequence(1, message.getPayload().length()-1);
 		ProcessInstance pi = processEngine.getRuntimeService().startProcessInstanceByKey(key);
 		processInstanceController.processInstanceStarted(session, pi.getProcessInstanceId());
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		processInstanceController.processInstanceCompleted(pi.getProcessInstanceId());
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		processInstanceController.processInstanceCompleted(pi.getProcessInstanceId());
 	}
 
 }

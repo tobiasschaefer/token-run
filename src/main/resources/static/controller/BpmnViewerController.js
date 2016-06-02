@@ -41,7 +41,10 @@
 				humanTask.addEventListener('click', openModal);
 			}
 		};
-
+	    
+	    $scope.currentPlayerName = "";
+	    $scope.currentLevelScore = "";
+		
 		$scope.level = {
 				key: "Test-Prozess",
 				time: "00:00:00",
@@ -103,7 +106,7 @@
 			timeStart = today.getTime();
 
 			// TODO: remove
-			placeToken('UserTask_1');
+			//placeToken('UserTask_1');
 		}
 
 		$scope.cancel = function() {
@@ -165,7 +168,32 @@
 				html: '<div style="width: 25px; height: 25px; border-radius: 50%; fill: #337ab7"></div>'
 			});
 		}
-
+		
+		$scope.openLevelScorePopup = function() {
+			$('#levelscoreModal').modal('toggle');
+		}
+		
+		$scope.commitLevelScoreAndClosePopup = function() {
+			$http({
+				method: 'POST',
+				url: "/"+$scope.level.key+"/score",
+				data: {
+					playerName:$scope.currentPlayerName,
+					score:$scope.currentLevelScore
+				}
+			}).then(function successCallback(response) {
+				alert("your level score has been submitted!");
+				//reset for next run
+			    $scope.currentPlayerName = "";
+			    $scope.currentLevelScore = "";
+			    $('#levelscoreModal').modal('toggle');
+			    
+			}, function errorCallback(response) {
+				alert("could not submit level score, please try again!");
+				$('#levelscoreModal').modal('toggle');
+			});
+		}
+		
 		function removeToken(id) {
 			overlays.remove(id);
 		}
