@@ -18,6 +18,7 @@ public class LevelScore {
 	private long time;
 	private String playerName;
 	private String levelIdentifier;
+	private String processId;
 
 
 
@@ -35,8 +36,8 @@ public class LevelScore {
 
 		time = newLevelScore.getTime();
 		playerName = newLevelScore.getPlayerName();
+		processId = newLevelScore.getProcessId();
 		this.levelIdentifier = levelIdentifier;
-
 	}
 
 
@@ -103,4 +104,19 @@ public class LevelScore {
 		this.levelIdentifier = levelIdentifier;
 	}
 
+
+
+
+
+	public String getProcessId() {
+		return processId;
+	}
+
+
+
+
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
+	}
 }

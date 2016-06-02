@@ -4,6 +4,7 @@ public class LevelScoreDTO {
 
 	private long time;
 	private String playerName;
+	private String processId;
 
 
 
@@ -17,9 +18,10 @@ public class LevelScoreDTO {
 
 
 
-	public LevelScoreDTO(String playerName, long time) {
+	public LevelScoreDTO(String playerName, long time, String processId) {
 		this.time = time;
 		this.playerName = playerName;
+		this.processId = processId;
 	}
 
 
@@ -60,7 +62,23 @@ public class LevelScoreDTO {
 
 	@Override
 	public String toString() {
-		return "LevelScoreDTO [score=" + time + ", playerName=" + playerName + "]";
+		return "LevelScoreDTO [score=" + time + ", playerName=" + playerName + ", processId=" + processId + "]";
+	}
+
+
+
+
+
+	public String getProcessId() {
+		return processId;
+	}
+
+
+
+
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
 	}
 
 }

@@ -46,7 +46,7 @@ public class LevelScoreController {
 		List<LevelScoreDTO> highScores = new ArrayList<LevelScoreDTO>();
 		
 		for(LevelScore levelScore:topNLevelScoresByLevelDefinition) {
-			highScores.add(new LevelScoreDTO(levelScore.getPlayerName(), levelScore.getTime()));
+			highScores.add(new LevelScoreDTO(levelScore.getPlayerName(), levelScore.getTime(), levelScore.getProcessId()));
 		}
 		
 		_logger.debug("found {} elements", topNLevelScoresByLevelDefinition.size());
