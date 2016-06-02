@@ -1,0 +1,28 @@
+@CHARSET "ISO-8859-1";
+
+button {
+	margin: 5px;
+	width: 100px;
+	height: 40;
+}
+
+.right {
+	position: absolute;
+	right: 10px;
+}
+
+.left {
+	position: absolute;
+	left: 10px;
+}
+
+.big {
+	font-size: large;
+	font-weight: bold;
+}
+
+#js-canvas {
+	border-style: solid;
+	border-width: 1px;
+	margin: 20px 10px 0px 10px;
+}
