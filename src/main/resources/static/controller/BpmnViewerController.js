@@ -62,7 +62,7 @@
 		}
 
 		$scope.abbruch = function() {
-			$window.location.href="index2.html";
+			$window.location.href="index.html";
 		}
 
 		$scope.stop = function() {
