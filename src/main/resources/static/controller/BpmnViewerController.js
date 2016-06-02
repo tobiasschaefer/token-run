@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', 'restUrlProcessDefinitions', function($scope, $window, $location, $http, $timeout, $q, restUrlProcessDefinitions) {
+	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', '$modal', 'restUrlProcessDefinitions', function($scope, $window, $location, $http, $timeout, $q, $modal, restUrlProcessDefinitions) {
 
 		var height = $window.innerHeight - 200;
 
@@ -19,18 +19,32 @@
 	        console.log("Received data from websocket: ", data);
 	        if(data.status == "started") {
 	        	startTimer();
-	        } else if(data.status == "stoped") {
+	        } else if(data.status == "completed") {
 	        	stopTimer();
-	        	$scope.level.stopped = true;
+	        	$scope.level.completed = true;
+	        	// open "finished"-popup
+	        	$modal.open({
+					templateUrl: 'FinishedLevelModal.html',
+					controller: 'FinishedLevelModalController',
+					size: 'sm',
+					resolve: {
+						processKey: function () {
+							return $scope.level.key;
+						},
+						time: function () {
+							return $scope.level.time;
+						}
+					}
+				});
 	        }
 	    };
 		
 		$scope.level = {
 				key: "Test-Prozess",
-				zeit: "00:00:00",
+				time: "00:00:00",
 				instanceId: null,
 				started: false,
-				stopped: false
+				completed: false
 		};
 
 		$scope.initLevel = function() {
@@ -84,7 +98,7 @@
 			placeToken('UserTask_1');
 		}
 
-		$scope.abbruch = function() {
+		$scope.cancel = function() {
 			$window.location.href="../";
 		}
 
@@ -111,7 +125,7 @@
 			ms = Math.floor(ms % 60);
 			s = checkTime(Math.floor(ms));
 			// normalize time string
-			$scope.level.zeit = h + ":" + m + ":" + s;
+			$scope.level.time = h + ":" + m + ":" + s;
 
 			// timer expired, restart timer
 			tmPromise = $timeout(function () {

@@ -8,8 +8,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
 		<script src="../app.js"></script>
 		<script src="../controller/BpmnViewerController.js"></script>
+		<script src="../controller/FinishedLevelModalController.js"></script>
 		<script src="../bower_components/bpmn-js/dist/bpmn-navigated-viewer.js"></script>
 		
 		<meta charset="ISO-8859-1">
@@ -18,6 +20,8 @@
 	
 	<body ng-controller="BpmnViewerController" ng-init="initLevel()">
 		
+		<div ng-include="'../templates/FinishedLevelModal.html'"></div>
+		
 		<!-- Steuerungselemente -->
 		<div>
 			<div id="tokenRunErrorContainer" ng-show="error.length>0">
@@ -25,12 +29,12 @@
      		</div>
 			<div class="form-group">
 				<div class="big left">Current Level: {{ level.key }}</div>
-				<div class="big right">Elapsed time: {{ level.zeit }}</div>
+				<div class="big right">Elapsed time: {{ level.time }}</div>
 			</div>
 			<br />
 			<br />
 			<div class="form-group">
-				<button class="btn btn-default big left" ng-click="abbruch()">Cancel</button>
+				<button class="btn btn-default big left" ng-click="cancel()">Cancel</button>
 				<button class="btn btn-primary big right" ng-click="startLevel()" ng-disabled="level.started">Start</button>
 			</div>
 		</div>
@@ -39,5 +43,6 @@
 		
 		<!-- viewer -->
 		<div id="js-canvas"></div>
+		
 </body>
 </html>
