@@ -1,5 +1,7 @@
 package info.novatec.tr.delegate;
 
+import java.util.Random;
+
 import javax.inject.Named;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -13,6 +15,8 @@ public class RandomDuration implements JavaDelegate {
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		Thread.sleep((long)Math.random()*10000);
+		long millis = (long) new Random().nextInt(10000);
+		System.out.println("Sleeping "+millis+" milliseconds.");
+		Thread.sleep(millis);
 	}
 }
