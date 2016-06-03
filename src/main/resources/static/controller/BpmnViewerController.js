@@ -44,11 +44,10 @@
 		var tokens = { };
 
 		$scope.currentPlayerName = "";
-		$scope.currentLevelScore = "";
 
 		$scope.level = {
 				key: "Test-Prozess",
-				time: "00:00:00",
+				time: 0,
 				instanceId: null,
 				started: false,
 				completed: false
@@ -107,27 +106,12 @@
 		}
 
 		function startTimer() {
-
-			var h, m, s, ms, today = new Date();
-			// compute for the duration, 
-			// normalize for the user
-//			delta = today.getTime() - timeStart
-//			ms = Math.floor((delta) / 1000);
-			var delta = today.getTime() - timeStart
-			ms = Math.floor(delta / 1000);
-			h =  checkTime(Math.floor(ms / 3600));
-			ms = Math.floor(ms % 3600);
-			m = checkTime(Math.floor(ms / 60));
-			ms = Math.floor(ms % 60);
-			s = checkTime(Math.floor(ms));
-			// normalize time string
-			$scope.currentLevelScore = delta;
-			$scope.level.time = h + ":" + m + ":" + s;
+			$scope.level.time = (new Date().getTime() - timeStart);
 
 			// timer expired, restart timer
 			tmPromise = $timeout(function () {
 				startTimer();
-			}, 500);
+			}, 100);
 
 			$scope.level.started = true;
 		}
@@ -172,14 +156,13 @@
 				url: "/"+$scope.level.key+"/score",
 				data: {
 					playerName:$scope.currentPlayerName,
-					time:$scope.currentLevelScore,
+					time:$scope.level.time,
 					processId:"notSet"
 				}
 			}).then(function successCallback(response) {
 				alert("Your level score has been submitted!");
 				//reset for next run
 				$scope.currentPlayerName = "";
-				$scope.currentLevelScore = "";
 				$('#levelscoreModal').modal('toggle');
 
 			}, function errorCallback(response) {

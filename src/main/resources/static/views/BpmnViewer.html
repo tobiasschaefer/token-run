@@ -31,7 +31,7 @@
      		</div>
 			<div class="form-group">
 				<div class="big left">Current Level: {{ level.key }}</div>
-				<div class="big right">Elapsed time: {{ level.time }}</div>
+				<div class="big right">Elapsed time: {{ level.time | date:'mm:ss.sss' : 'UTC' }}</div>
 			</div>
 			<br />
 			<br />
@@ -62,7 +62,7 @@
 		        	<div class="form-group">
 				    	<label class="col-lg-4 col-sm-4 control-label">Your Score</label>
 				    	<div class="col-lg-8 col-sm-8">
-				      		<p class="form-control-static"><span class="label label-success" style="font-size: 14pt;">{{ level.time }}</span></p>
+				      		<p class="form-control-static"><span class="label label-success" style="font-size: 14pt;">{{ level.time | date:'mm:ss.sss' : 'UTC' }}</span></p>
 				    	</div>
 				  	</div>
 					<div class="form-group">
