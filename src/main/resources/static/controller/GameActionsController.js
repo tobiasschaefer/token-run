@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRunApp').controller('GameActionsController', ['restUrlProcessDefinitions', '$http', '$scope','$window','$timeout', function (restUrlProcessDefinitions, $http, $scope,$window,$timeout) {
+	angular.module('TokenRunApp').controller('GameActionsController', ['restUrl', '$http', '$scope','$window','$timeout', function (restUrl, $http, $scope,$window,$timeout) {
 
 		var defaultLevelSelection = {
 				name:"choose level",
@@ -32,9 +32,10 @@
 
 			resetStateInformation();
 
+			var url = restUrl + "/process-definition?latestVersion=true"; 
 			$http({
 				method: 'GET',
-				url: restUrlProcessDefinitions
+				url: url
 			}).then(function successCallback(response) {
 				console.debug("found "+response.data.length+" deployed process definitions");
 				if(response.data.length>0) {
@@ -48,7 +49,7 @@
 					$scope.info="no level to play!";
 				}
 			}, function errorCallback(response) {
-				$scope.error = "TokenRun Error occured while accessing "+restUrlProcessDefinitions+" - status: "+response.status;
+				$scope.error = "TokenRun Error occurred while accessing "+url+" - status: "+response.status;
 			});
 			
 			$timeout(function() {
@@ -65,9 +66,10 @@
 			resetStateInformation();
 			resetHighscores();
 			
+			var url = restUrl + '/process-definition/'+$scope.selectedProcessDefinition.name+'/scores/10';
 			$http({
 				method: 'GET',
-				url: '/'+$scope.selectedProcessDefinition.name+'/scores/10'
+				url: url
 			}).then(function successCallback(response) {
 				console.log("found "+response.data.length+" level scores (max 10)");
 				if(response.data.length>0) {
@@ -78,7 +80,7 @@
 					$scope.info = "No highscores for "+$scope.selectedProcessDefinition.name+" available";
 				}
 			}, function errorCallback(response) {
-				$scope.error = "TokenRun Error occured while accessing "+restUrlProcessDefinitions+" - status: "+response.status;
+				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
 			});
 		}
 

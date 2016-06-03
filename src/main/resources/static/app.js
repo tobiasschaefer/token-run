@@ -8,6 +8,6 @@
 		  requireBase: false
 		});
 	}) 
-	.constant('restUrlProcessDefinitions', '/rest/process-definition?latestVersion=true');
+	.constant('restUrl', '/rest');
 
 }());

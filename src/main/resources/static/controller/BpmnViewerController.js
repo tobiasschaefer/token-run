@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', '$modal', 'restUrlProcessDefinitions', function($scope, $window, $location, $http, $timeout, $q, $modal, restUrlProcessDefinitions) {
+	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', '$modal', 'restUrl', function($scope, $window, $location, $http, $timeout, $q, $modal, restUrl) {
 
 		var task = {
 				id: "UserTask_1",
@@ -56,7 +56,7 @@
 			// 1. get process key from url parameters
 			$scope.level.key = $location.search().processDefinitionKey;
 
-			var url = restUrlProcessDefinitions + "/key/" + $scope.level.key + "/xml";
+			var url = restUrl + "/process-definition/key/" + $scope.level.key + "/xml";
 
 			// get xml from REST api
 			$http({
