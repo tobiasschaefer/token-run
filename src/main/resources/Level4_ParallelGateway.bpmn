@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.0.0">
   <bpmn:collaboration id="Collaboration_0hcpcym">
     <bpmn:participant id="Participant_1faettz" name="Pool" processRef="Level4_ParallelGateway" />
   </bpmn:collaboration>
@@ -14,7 +14,7 @@
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="SequenceFlow_0pnbtez" sourceRef="StartEvent_1" targetRef="ParallelGateway_1i46iiz" />
     <bpmn:sequenceFlow id="SequenceFlow_0gls0st" sourceRef="ParallelGateway_1i46iiz" targetRef="UserTask_123" />
-    <bpmn:userTask id="UserTask_123" name="eat pizza">
+    <bpmn:userTask id="UserTask_123" name="Eat pizza">
       <bpmn:incoming>SequenceFlow_0gls0st</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0fr8fe8</bpmn:outgoing>
     </bpmn:userTask>
@@ -33,7 +33,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_020yepz" sourceRef="ParallelGateway_05i7pjt" targetRef="EndEvent_0qq0m7i" />
     <bpmn:sequenceFlow id="SequenceFlow_0fr8fe8" sourceRef="UserTask_123" targetRef="ParallelGateway_05i7pjt" />
-    <bpmn:userTask id="UserTask_234" name="drink beer">
+    <bpmn:userTask id="UserTask_234" name="Drink beer">
       <bpmn:incoming>SequenceFlow_15t7k81</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1orbg04</bpmn:outgoing>
     </bpmn:userTask>

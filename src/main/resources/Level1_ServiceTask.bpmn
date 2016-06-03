@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.0.0">
   <bpmn:collaboration id="Collaboration_0sshohp">
     <bpmn:participant id="Participant_1ettgqf" name="Pool" processRef="Level1_ServiceTask" />
   </bpmn:collaboration>
@@ -12,7 +12,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1ls7fh9</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="ServiceTask_1e89xxa" name="Service Task" camunda:asyncBefore="true" camunda:delegateExpression="${randomDuration}">
+    <bpmn:serviceTask id="ServiceTask_1e89xxa" name="Wait random time" camunda:asyncBefore="true" camunda:delegateExpression="${randomDuration}">
       <bpmn:incoming>SequenceFlow_00fwz9w</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ls7fh9</bpmn:outgoing>
     </bpmn:serviceTask>
