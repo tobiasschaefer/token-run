@@ -21,7 +21,7 @@ public class TokenRunWebSocketHandler extends TextWebSocketHandler {
 		String key = (String)message.getPayload().subSequence(1, message.getPayload().length()-1);
 		ProcessInstance pi = processEngine.getRuntimeService().startProcessInstanceByKey(key);
 //		ProcessInstanceController.getInstance().processInstanceStarted(session, pi.getProcessInstanceId());
-		System.out.println("Seesion: "+session.getRemoteAddress());
+		System.out.println("Session: "+session.getRemoteAddress());
 		processInstanceController.processInstanceStarted(session, pi.getProcessInstanceId());
 	}
 

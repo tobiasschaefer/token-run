@@ -15,7 +15,7 @@ import org.springframework.web.socket.WebSocketSession;
 @Component
 public class ProcessInstanceController {
 	
-	private Map<String, WebSocketSession> sessions = new HashMap<String, WebSocketSession>();
+	private Map<String, WebSocketSession> sessions = new HashMap<>();
 	
 	@Autowired
 	ProcessEngine processEngine;

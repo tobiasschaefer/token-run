@@ -80,7 +80,7 @@
 					$scope.info = "No highscores for "+$scope.selectedProcessDefinition.name+" available";
 				}
 			}, function errorCallback(response) {
-				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
+				$scope.error = "TokenRun Error occurred while accessing "+url+" - status: "+response.status;
 			});
 		}
 
