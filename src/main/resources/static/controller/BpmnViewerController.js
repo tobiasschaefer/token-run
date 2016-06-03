@@ -31,8 +31,8 @@
 				$scope.openLevelScorePopup();
 			} else if(data.status == "entered") {
 				// TODO: adjust attributes
-				//task.id = data.taskId;
-				//task.attributeList = data.attributeList;
+				task.id = data.taskName;
+				task.attributeList = [];
 				placeToken(task.id);
 				var humanTask = document.querySelector('[data-element-id="' + task.id + '"]');
 				humanTask.addEventListener('click', openModal);
@@ -125,11 +125,6 @@
 			}, 500);
 
 			$scope.level.started = true;
-
-			// for testing purposes of "human task"-popup
-			var humanTask = document.querySelector('[data-element-id="' + task.id + '"]');
-			humanTask.addEventListener('click', openModal);
-			placeToken(task.id);
 		}
 
 		function stopTimer() {
