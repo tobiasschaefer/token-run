@@ -29,16 +29,19 @@ public class ElementsOfType {
 
 		for (ModelElementType typeElement : model.getModel().getTypes())
 			for(ModelElementInstance elementInstance : model.getModelElementsByType(typeElement))
-				addElement(typeElements, typeElement.getTypeName(), elementInstance.getAttributeValue("id"));
+				addElement(typeElements, typeElement.getTypeName(), elementInstance.getAttributeValue("id"), elementInstance.getAttributeValue("name"));
 
 		return typeElements;
 	}
 
-	private void addElement(List<TypeElement> typeElements, String typeName, String typeId) {
+	private void addElement(List<TypeElement> typeElements, String typeName, String typeId, String name) {
 		if(typeId == null)
 			return;
 
-		typeElements.add(new TypeElement(typeName, typeId));
+		if(name == null)
+			name = "";
+
+		typeElements.add(new TypeElement(typeName, typeId, name));
 	}
 
 }
