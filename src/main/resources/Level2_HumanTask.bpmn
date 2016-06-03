@@ -16,6 +16,10 @@
     <bpmn2:userTask id="UserTask_1" name="Do homework">
       <bpmn2:extensionElements>
         <camunda:taskListener delegateExpression="${humanTaskCreatedListener}" event="create" />
+        <camunda:inputOutput>
+          <camunda:outputParameter name="guess"/>
+          <camunda:outputParameter name="answer"/>
+        </camunda:inputOutput>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
