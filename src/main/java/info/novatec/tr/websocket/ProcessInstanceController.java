@@ -2,6 +2,7 @@ package info.novatec.tr.websocket;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -55,14 +56,23 @@ public class ProcessInstanceController {
 		sessions.remove(piid);
 	}
 	
-	public void humanTaskCreated(String piid, String tid, String taskName) {
+	public void humanTaskCreated(String piid, String tid, String taskName, List<String> outputParameterNames) {
 		System.out.println("Human Task entered. (piid="+piid+", tid="+tid+")");
 		WebSocketSession session = sessions.get(piid);
 		System.out.println(session);
-		String messageText = "{ \"taskId\":\""+tid+"\" ,"
-			    + "\"status\": \"entered\", "
-				+ "\"taskName\": \""+taskName+"\"}";
-		TextMessage message = new TextMessage(messageText.getBytes());
+		StringBuilder sb = new StringBuilder();
+		sb.append("{ \"taskId\":\""+tid+"\" , \"status\": \"entered\", \"parameterNames\": [");
+		boolean first = true;
+		for (String parameterName : outputParameterNames) {
+			if (!first) {
+				sb.append(", ");
+			}
+			sb.append("\""+parameterName+"\"");
+			first = false;
+		}
+		sb.append("], \"taskName\": \""+taskName+"\"}");
+		System.out.println(sb.toString());
+		TextMessage message = new TextMessage(sb.toString().getBytes());
 		try {
 			session.sendMessage(message);
 		} catch (IOException e) {
