@@ -7,8 +7,6 @@ import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.camunda.bpm.model.xml.type.ModelElementType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ElementsOfType {
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	RepositoryService repoService;

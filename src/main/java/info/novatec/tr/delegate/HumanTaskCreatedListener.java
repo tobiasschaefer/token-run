@@ -1,7 +1,8 @@
 package info.novatec.tr.delegate;
 
+import info.novatec.tr.websocket.ProcessInstanceController;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Named;
@@ -12,8 +13,6 @@ import org.camunda.bpm.engine.delegate.TaskListener;
 import org.camunda.bpm.model.xml.instance.DomElement;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import info.novatec.tr.websocket.ProcessInstanceController;
 
 @Named
 public class HumanTaskCreatedListener implements TaskListener {
