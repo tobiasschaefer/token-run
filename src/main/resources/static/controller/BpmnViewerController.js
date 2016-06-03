@@ -171,14 +171,14 @@
 					processId:"notSet"
 				}
 			}).then(function successCallback(response) {
-				alert("your level score has been submitted!");
+				alert("Your level score has been submitted!");
 				//reset for next run
 				$scope.currentPlayerName = "";
 				$scope.currentLevelScore = "";
 				$('#levelscoreModal').modal('toggle');
 
 			}, function errorCallback(response) {
-				alert("could not submit level score, please try again!");
+				alert("Could not submit level score, please try again!");
 				$('#levelscoreModal').modal('toggle');
 			});
 		}
