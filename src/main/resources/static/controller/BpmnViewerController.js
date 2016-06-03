@@ -14,7 +14,12 @@
 		var BpmnNavigatedViewer  = window.BpmnJS;
 		var viewer = new BpmnNavigatedViewer ({ container: angular.element('#js-canvas'), height });
 
-		var url = (location.protocol === "https:" ? "wss://" : "ws://") + location.host +  "/webSocket";
+		var url;
+		if (location.protocol === "https:") {
+			url = "wss://" + location.hostname +  ":4443/webSocket";
+		} else {
+			url = "ws://" + location.hostname + ":" + location.port + "/webSocket";
+		}
 		console.log("Connecting WebSocket: " + url);
 		var websocket = new WebSocket(url);
 
