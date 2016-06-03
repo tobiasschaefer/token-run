@@ -66,7 +66,7 @@
 			resetStateInformation();
 			resetHighscores();
 			
-			var url = restUrl + '/process-definition/'+$scope.selectedProcessDefinition.name+'/scores/10';
+			var url = '/'+$scope.selectedProcessDefinition.name+'/scores/10';
 			$http({
 				method: 'GET',
 				url: url

@@ -111,14 +111,17 @@
 			var h, m, s, ms, today = new Date();
 			// compute for the duration, 
 			// normalize for the user
-			timeEnd = today.getTime();
-			ms = Math.floor((timeEnd - timeStart) / 1000);
+//			delta = today.getTime() - timeStart
+//			ms = Math.floor((delta) / 1000);
+			var delta = today.getTime() - timeStart
+			ms = Math.floor(delta / 1000);
 			h =  checkTime(Math.floor(ms / 3600));
 			ms = Math.floor(ms % 3600);
 			m = checkTime(Math.floor(ms / 60));
 			ms = Math.floor(ms % 60);
 			s = checkTime(Math.floor(ms));
 			// normalize time string
+			$scope.currentLevelScore = delta;
 			$scope.level.time = h + ":" + m + ":" + s;
 
 			// timer expired, restart timer
