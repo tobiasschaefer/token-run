@@ -3,9 +3,6 @@ package info.novatec.tr.highscore;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
