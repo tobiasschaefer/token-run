@@ -14,7 +14,9 @@
 		var BpmnNavigatedViewer  = window.BpmnJS;
 		var viewer = new BpmnNavigatedViewer ({ container: angular.element('#js-canvas'), height });
 		// connect to WebSocket
-		var websocket = new WebSocket("ws://" + location.host +  "/webSocket");
+		var url = location.protocol === "https" ? "wss://" : "ws://" + location.host +  "/webSocket";
+		console.log("Connecting WebSocket: " + url);
+		var websocket = new WebSocket(url);
 
 		websocket.onopen = function(){  
 			console.log("WebSocket has been opened!");  
@@ -73,7 +75,7 @@
 				});
 
 			}, function errorCallback(response) {
-				$scope.error = "TokenRun Error occured while accessing "+url+" - status: "+response.status;
+				$scope.error = "TokenRun Error occurred while accessing "+url+" - status: "+response.status;
 			});
 
 		}
