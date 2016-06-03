@@ -203,7 +203,7 @@
 		
 		function sendTaskCompleted() {
 			var url = restUrl + "/task/" + task.executionId + "/complete"
-			console.log(task.attributeList);
+			console.log({ variables: task.attributeList });
 			$http({
 				method: 'POST',
 				url: url,

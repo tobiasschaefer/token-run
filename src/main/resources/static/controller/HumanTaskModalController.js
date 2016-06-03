@@ -5,7 +5,7 @@
 
 		$scope.init = function() {
 			$scope.key = key;
-			$scope.parameters = attributeList;
+			$scope.parameters = getJSONList(attributeList);
 			$scope.websocket = websocket;
 		}
 
@@ -14,6 +14,14 @@
 			var humanTask = document.querySelector('[data-element-id="' + $scope.key + '"]');
 			humanTask.removeEventListener('click', openModal);
 			$(humanTask).attr('class', $(humanTask).attr('class').replace(' active'));
+		}
+
+		function getJSONList(json) {
+			var list = [];
+			angular.forEach(json, function(value, key) {
+			  this.push({ name: value, value: "" });
+			}, list);
+			return list;
 		}
 		
 		function getJSON(list) {
