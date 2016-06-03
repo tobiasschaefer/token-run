@@ -1,4 +1,4 @@
-package info.novatec.tr;
+package info.novatec.tr.config;
 
 import javax.annotation.PostConstruct;
 import javax.ws.rs.ApplicationPath;
