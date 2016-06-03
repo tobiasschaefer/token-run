@@ -4,8 +4,9 @@
 	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', '$modal', 'restUrl', function($scope, $window, $location, $http, $timeout, $q, $modal, restUrl) {
 
 		var task = {
-				id: "UserTask_1",
-				attributeList: [ { name: "Name" }, { name: "Vorname" } ]
+				taskId: null,
+				executionId: null,
+				attributeList: {}
 		};
 
 		var height = $window.innerHeight - 200;
@@ -31,10 +32,11 @@
 				$scope.openLevelScorePopup();
 			} else if(data.status == "entered") {
 				// TODO: adjust attributes
-				task.id = data.taskName;
-				task.attributeList = [];
-				placeToken(task.id);
-				var humanTask = document.querySelector('[data-element-id="' + task.id + '"]');
+				task.taskId = data.taskName;
+				task.executionId = data.taskId;
+				task.attributeList = { Name: "", Vorname: "" };
+				placeToken(task.taskId);
+				var humanTask = document.querySelector('[data-element-id="' + task.taskId + '"]');
 				humanTask.addEventListener('click', openModal);
 			}
 		};
@@ -191,7 +193,7 @@
 				size: 'lg',
 				resolve: {
 					key: function () {
-						return task.id;
+						return task.taskId;
 					},
 					attributeList: function () {
 						return task.attributeList;
@@ -204,11 +206,27 @@
 					}
 				}
 			});
-			humanTaskModal.result.then(function () {
+			humanTaskModal.result.then(function (result) {
 				console.log("modal closed");
-				removeToken(task.id);
+				task.attributeList = result;
+				sendTaskCompleted();
 			}, function () {
 				console.log("modal dismissed");
+			});
+		}
+		
+		function sendTaskCompleted() {
+			var url = restUrl + "/task/" + task.executionId + "/complete"
+			console.log(task.attributeList);
+			$http({
+				method: 'POST',
+				url: url,
+				data: task.attributeList
+			}).then(function successCallback(response) {
+				console.log("Task " + task.taskId + " with id " + task.executionId + " completed!");
+				removeToken(task.taskId);
+			}, function errorCallback(response) {
+				console.error("Task " + task.taskId + " with id " + task.executionId + " could NOT be completed!");
 			});
 		}
 	}]);
