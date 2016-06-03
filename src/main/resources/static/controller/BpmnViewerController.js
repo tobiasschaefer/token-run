@@ -6,7 +6,7 @@
 		var task = {
 				taskId: null,
 				executionId: null,
-				attributeList: {}
+				attributeList: null
 		};
 
 		var height = $window.innerHeight - 200;
@@ -31,13 +31,13 @@
 				// open "finished"-popup
 				$scope.openLevelScorePopup();
 			} else if(data.status == "entered") {
-				// TODO: adjust attributes
 				task.taskId = data.taskName;
 				task.executionId = data.taskId;
-				task.attributeList = { Name: "", Vorname: "" };
+				task.attributeList = data.parameterNames;
 				placeToken(task.taskId);
 				var humanTask = document.querySelector('[data-element-id="' + task.taskId + '"]');
 				humanTask.addEventListener('click', openModal);
+				$(humanTask).attr('class', $(humanTask).attr('class') + ' active');
 			}
 		};
 
@@ -200,7 +200,7 @@
 			$http({
 				method: 'POST',
 				url: url,
-				data: task.attributeList
+				data: { variables: task.attributeList }
 			}).then(function successCallback(response) {
 				console.log("Task " + task.taskId + " with id " + task.executionId + " completed!");
 				removeToken(task.taskId);

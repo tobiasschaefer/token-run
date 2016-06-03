@@ -35,3 +35,7 @@ button {
 	margin-top: -10px;
 	margin-left: -10px;
 }
+
+.active:hover {
+	cursor: pointer;
+}

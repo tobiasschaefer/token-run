@@ -5,28 +5,21 @@
 
 		$scope.init = function() {
 			$scope.key = key;
-			$scope.attributeList = getList(attributeList);
+			$scope.parameters = attributeList;
 			$scope.websocket = websocket;
 		}
 
 		$scope.confirm = function() {
-			$modalInstance.close(getJSON($scope.attributeList));
+			$modalInstance.close(getJSON($scope.parameters));
 			var humanTask = document.querySelector('[data-element-id="' + $scope.key + '"]');
 			humanTask.removeEventListener('click', openModal);
-		}
-
-		function getList(json) {
-			var list = [];
-			angular.forEach(json, function(value, key) {
-			  this.push({ name: key, value: value });
-			}, list);
-			return list;
+			$(humanTask).attr('class', $(humanTask).attr('class').replace(' active'));
 		}
 		
 		function getJSON(list) {
 			var json = {};
 			angular.forEach(list, function(value, key) {
-			  json[value.name] = value.value;
+			  json[value.name] = { value: value.value };
 			});
 			return json;
 		}

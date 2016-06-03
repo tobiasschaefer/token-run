@@ -3,7 +3,7 @@
 		<h3 class="modal-title">{{ key }}</h3>
 	</div>
 	<div class="modal-body" ng-init="init()">
-		<div ng-repeat="attribute in attributeList">
+		<div ng-repeat="attribute in parameters">
 			 {{ attribute.name }}: <input type="text" ng-model="attribute.value">
 			<br />
 		</div>
