@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', '$modal', 'restUrl', function($scope, $window, $location, $http, $timeout, $q, $modal, restUrl) {
+	angular.module('TokenRunApp').controller('BpmnViewerController', ['$scope', '$window', '$location', '$http', '$timeout', '$q', '$modal', 'restUrl', '$interval', function($scope, $window, $location, $http, $timeout, $q, $modal, restUrl, $interval) {
 
 		var task = {
 				taskId: null,
@@ -49,7 +49,7 @@
 				key: "Test-Prozess",
 				time: 0,
 				instanceId: null,
-				started: false,
+				timer: null,
 				completed: false
 		};
 
@@ -106,20 +106,13 @@
 		}
 
 		function startTimer() {
-			$scope.level.time = (new Date().getTime() - timeStart);
-
-			// timer expired, restart timer
-			tmPromise = $timeout(function () {
-				startTimer();
-			}, 100);
-
-			$scope.level.started = true;
+			$scope.timer = $interval(function() {
+				$scope.level.time = (new Date().getTime() - timeStart);
+			}, 10);
 		}
 
 		function stopTimer() {
-			// stop timeout service
-			$timeout.cancel(tmPromise);
-			$scope.level.started = false;
+			$interval.cancel($scope.timer);
 		}
 
 		function sendRequest(request) {
