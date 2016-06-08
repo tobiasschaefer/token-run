@@ -82,6 +82,42 @@ public class ProcessInstanceController {
 		System.out.println("Event humanTaskEntered sent. (piid=+"+piid+", WS-Session="+session.getRemoteAddress()+")");
 	}
 	
+	public void serviceTaskCreated(String piid, String executionid, String taskName) {
+		System.out.println("Service Task runs. (piid="+piid+", tid="+executionid+")");
+		WebSocketSession session = sessions.get(piid);
+		System.out.println(session);
+		StringBuilder sb = new StringBuilder();
+		sb.append("{ \"taskId\":\""+executionid+"\" , \"status\": \"run\", \"parameterNames\": [");
+		sb.append("], \"taskName\": \""+taskName+"\"}");
+		System.out.println(sb.toString());
+		TextMessage message = new TextMessage(sb.toString().getBytes());
+		try {
+			session.sendMessage(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Event serviceTaskRun sent. (piid=+"+piid+", WS-Session="+session.getRemoteAddress()+")");
+	}
+	
+	public void serviceTaskEnded(String piid, String executionid, String taskName) {
+		System.out.println("Service Task ended. (piid="+piid+", tid="+executionid+")");
+		WebSocketSession session = sessions.get(piid);
+		System.out.println(session);
+		StringBuilder sb = new StringBuilder();
+		sb.append("{ \"taskId\":\""+executionid+"\" , \"status\": \"end\", \"parameterNames\": [");
+		sb.append("], \"taskName\": \""+taskName+"\"}");
+		System.out.println(sb.toString());
+		TextMessage message = new TextMessage(sb.toString().getBytes());
+		try {
+			session.sendMessage(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Event serviceTaskEnd sent. (piid=+"+piid+", WS-Session="+session.getRemoteAddress()+")");
+	}
+	
 	private String formatDuration(long duration) {
 		return String.format("%d min, %d sec, %d millis", 
 			    TimeUnit.MILLISECONDS.toMinutes(duration),

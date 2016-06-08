@@ -45,6 +45,16 @@
 				var humanTask = document.querySelector('[data-element-id="' + task.taskId + '"]');
 				humanTask.addEventListener('click', openModal);
 				$(humanTask).attr('class', $(humanTask).attr('class') + ' active');
+			} else if(data.status == "run") {
+				task.taskId = data.taskName;
+				task.executionId = data.taskId;
+				task.attributeList = data.parameterNames;
+				placeToken(task.taskId);
+			} else if(data.status == "end") {
+				task.taskId = data.taskName;
+				task.executionId = data.taskId;
+				task.attributeList = data.parameterNames;
+				removeToken(task.taskId);
 			}
 		};
 
@@ -138,6 +148,7 @@
 				},
 				html: '<div id="test" class="token"></div>'
 			});
+			console.log(tokenId);
 			tokens[id] = tokenId;
 		}
 		
